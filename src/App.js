@@ -1,15 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
   componentDidMount() {
+    this.getPlaces()
     this.loadMap()
   }
 
   loadMap = () => {
     loadScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyDIH856EDhM6HZ9pI3A5NhPko9vjNOwBhw&callback=initMap")
     window.initMap = this.initMap
+  }
+
+  getPlaces = () => {
+    const endPoint = "https://api.foursquare.com/v2/venues/explore?"
+    const parameters = {
+      client_id : "GZW23AP4MZ5N5TPYFXWICJMZDGCQVHKMOXLAFLNCOQUZO3PA",
+      client_secret : "CWCZRBRASQDLLMMVO3NKYQ5LLBPX1AQGKNMINMUN1RM0DYVB",
+      query : "food",
+      near : "Bhopal"
+    }
+    axios.get(endPoint + new URLSearchParams(parameters))
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.log("ERROR! " + error);
+    })
   }
 
   initMap = () => {
