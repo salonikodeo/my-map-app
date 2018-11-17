@@ -41,11 +41,19 @@ class App extends Component {
       center: {lat: 23.259933, lng: 77.412615},
       zoom: 8
     });
+    var infowindow = new window.google.maps.InfoWindow();
+
     this.state.venues.map(ven => {
+      var contentString =  `${ven.venue.name}`;
+      
       var marker = new window.google.maps.Marker({
       position : {lat: ven.venue.location.lat, lng: ven.venue.location.lng},
       map : map,
       title : ven.venue.name
+      });
+      marker.addListener('click', function() {
+        infowindow.setContent(contentString)
+        infowindow.open(map, marker);
       });
     })
   
