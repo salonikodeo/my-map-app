@@ -44,12 +44,14 @@ class App extends Component {
     var infowindow = new window.google.maps.InfoWindow();
 
     this.state.venues.map(ven => {
-      var contentString =  `${ven.venue.name}`;
+      var contentString =  `${ven.venue.name} , ${ven.venue.location.address}`;
       
       var marker = new window.google.maps.Marker({
       position : {lat: ven.venue.location.lat, lng: ven.venue.location.lng},
       map : map,
-      title : ven.venue.name
+      title : ven.venue.name,
+      address : ven.venue.location.address,
+      id : ven.venue.id
       });
       marker.addListener('click', function() {
         infowindow.setContent(contentString)
